@@ -43,4 +43,13 @@ public class Planet {
 		s.vel = s.vel.plus(f.scale(dt));
 	}
 
+	boolean inside(int x, int y) {
+		if ((x - pos.x) * (x - pos.x) + (y - pos.y) * (y - pos.y) <= radius[c] * radius[c]) return true;
+		else return false;
+	}
+
+	void move(int x, int y) {
+		pos = new point(x, y);
+	}
+
 }

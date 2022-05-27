@@ -1,4 +1,3 @@
-
 float G = 6.67e-11;
 long prev;
 float dt;
@@ -7,6 +6,7 @@ float[] mass = {2e11, 3e11, 3e16};
 float[] radius = {50, 70, 80};
 color[] colors = {#ff0000, #00ff00, #0000ff};
 PImage ship;
+int mx, my;
 
 // draw arrow from point 1 to point 2
 void drawarrow(float x1, float y1, float x2, float y2) {
@@ -78,6 +78,20 @@ void draw() {
     for (int i = 10; i < 500; i += 40) {
         for (int j = 10; j < 500; j += 40) {
             showfield(i, j);
+        }
+    }
+}
+
+void mouseClicked() {
+   mx = mouseX;
+   my = mouseY;
+}
+
+void mouseDragged() {
+    println(mouseX - mx);
+    for (Planet p : planets) {
+        if (p.inside(mouseX, mouseY)) {
+            p.move(mouseX, mouseY);
         }
     }
 }
