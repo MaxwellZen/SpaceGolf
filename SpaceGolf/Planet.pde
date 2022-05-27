@@ -2,6 +2,7 @@ public class Planet {
 	Point pos;
 	int c;
 
+	// constructors
 	Planet() {
 		pos = new Point(0, 0);
 		c = (int)(Math.random()*3);
@@ -17,18 +18,26 @@ public class Planet {
 		c = C;
 	}
 
+	// draw planet as a circle
 	void draw() {
 		fill(colors[c]);
 		stroke(0);
 		circle(pos.x, pos.y, 2*radius[c]);
 	}
 
+	// calculate gravitational field at another point
 	Point field(Point loc) {
+		// center case
+		if (pos.distsq(loc)==0) {
+			return new Point(0,0);
+		}
+		// use GM/R^2 formula
 		float mag = G * mass[c] / pos.distsq(loc);
 		Point ans = pos.minus(loc).normalize().scale(mag);
 		return ans;
 	}
 
+	// apply force on ship based on gravitational field
 	void applyForce(Ship s) {
 		Point f = field(s.pos);
 		s.vel = s.vel.plus(f.scale(dt));

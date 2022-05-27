@@ -2,6 +2,7 @@ public class Ship {
 	Point pos, vel;
 	float mass;
 
+	// constructors
 	Ship() {
 		pos = new Point(0,0);
 		vel = new Point(0,0);
@@ -14,6 +15,7 @@ public class Ship {
 		mass = m;
 	}
 
+	// draw by transforming image in place and drawing image
 	void draw() {
 		pushMatrix();
 		translate(pos.x, pos.y);
@@ -22,6 +24,7 @@ public class Ship {
 		popMatrix();
 	}
 
+	// draw ghost as a short line
 	void drawghost() {
 		stroke(255);
 		Point p1 = pos.plus(vel.normalize().scale(5));
@@ -29,6 +32,7 @@ public class Ship {
 		line(p1.x, p1.y, p2.x, p2.y);
 	}
 
+	// update position from velocity
 	void updatePos() {
 		pos = pos.plus(vel.scale(dt));
 	}
