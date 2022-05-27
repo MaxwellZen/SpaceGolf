@@ -49,13 +49,19 @@ void showfield(float x, float y) {
 
 // initialize variables
 void setup() {
-    size(500, 500);
+    size(800, 500);
+
+    // game
     planets = new ArrayList<Planet>();
     planets.add(new Planet(250, 250, 2));
     player = new Ship(250, 150, 165, 0, 5);
     ship = loadImage("ship.png");
     dt = 0;
     prev = System.currentTimeMillis();
+
+    // sidebar
+    buttons = new ArrayList<Button>();
+    buttons.add(new Button(700, 300, 1));
 }
 
 void draw() {
@@ -79,6 +85,10 @@ void draw() {
         for (int j = 10; j < 500; j += 40) {
             showfield(i, j);
         }
+    }
+    for (Button b : buttons) {
+        println(b.hover());
+        b.display();
     }
 }
 
