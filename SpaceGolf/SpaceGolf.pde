@@ -7,6 +7,7 @@ float[] radius = {50, 70, 80};
 color[] colors = {#ff0000, #00ff00, #0000ff};
 PImage ship;
 int mx, my;
+boolean start;
 
 // draw arrow from point 1 to point 2
 void drawarrow(float x1, float y1, float x2, float y2) {
@@ -54,29 +55,38 @@ void setup() {
     // game
     planets = new ArrayList<Planet>();
     planets.add(new Planet(250, 250, 2));
-    player = new Ship(250, 150, 165, 0, 5);
+    player = new Ship(250, 100, 165, 0, 5);
     ship = loadImage("ship.png");
     dt = 0;
     prev = System.currentTimeMillis();
 
     // sidebar
     buttons = new ArrayList<Button>();
-    buttons.add(new Button(700, 300, 1));
+    buttons.add(new Button(550, 100, 1));
+    buttons.add(new Button(620, 100, 2));
+    buttons.add(new Button(690, 100, 3));
+    buttons.add(new Button(550, 170, 4));
+    buttons.add(new Button(620, 170, 5));
+    buttons.add(new Button(690, 170, 6));
+
+    start = false;
 }
 
 void draw() {
+    println(start);
     background(20);
     // update time variables
     long cur = System.currentTimeMillis();
     dt = (cur - prev) / 1000.0;
     prev = cur;
+
     // address each planet
     for (Planet p : planets) {
-        p.applyForce(player);
+        if (start) p.applyForce(player);
         p.draw();
     }
     // update the player
-    player.updatePos();
+    if (start) player.updatePos();
     player.draw();
     // show the preview
     showghost();
@@ -87,11 +97,12 @@ void draw() {
         }
     }
     for (Button b : buttons) {
-        println(b.hover());
         b.update();
         b.display();
     }
 }
+
+
 
 void mouseClicked() {
    mx = mouseX;
@@ -105,4 +116,8 @@ void mouseDragged() {
             p.move(mouseX, mouseY);
         }
     }
+}
+
+void keyPressed() {
+    if (key == ' ') start = true;
 }

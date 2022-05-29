@@ -5,8 +5,8 @@ public class Button{
   float x, y;
   PImage img;
   int number;
-  int w = 30;
-  int h = 30;
+  int w = 55;
+  int h = 55;
 
   public Button(float xcor, float ycor, int num) {
     x = xcor;

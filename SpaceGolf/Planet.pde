@@ -48,8 +48,8 @@ public class Planet {
 		else return false;
 	}
 
-	void move(int x, int y) {
-		pos = new point(x, y);
+	void move(float x, float y) {
+		pos = new Point(x, y);
 	}
 
 }
