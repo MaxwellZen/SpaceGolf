@@ -88,6 +88,7 @@ void draw() {
     }
     for (Button b : buttons) {
         println(b.hover());
+        b.update();
         b.display();
     }
 }

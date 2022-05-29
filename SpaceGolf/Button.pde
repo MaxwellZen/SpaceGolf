@@ -29,7 +29,7 @@ public class Button{
     }
 
     fill(142, 80, 80);
-    rect(700, 300, 30, 30);
+    rect(x, y, w, h);
 
     if (hover) {
       fill(255, 255, 255, 60);
