@@ -1,12 +1,15 @@
 public class LevelOne{
 
     Point hole = new Point(250, 400);
+    int tries;
 
     public LevelOne() {
-        
+        tries = 0;
     }
 
     void setup() {
+        start = false;
+
         // game
         planets = new ArrayList<Planet>();
         planets.add(new Planet(250, 250, 2));
@@ -24,9 +27,14 @@ public class LevelOne{
         buttons.add(new Button(620, 170, 5));
         buttons.add(new Button(690, 170, 6));
 
-        start = false;
+        // hole
         fill(153);
         circle(hole.x, hole.y, 50);
+
+        // tries
+        textSize(20);
+        fill(0, 408, 612, 204);
+        text("try # " + tries, 40, 40);
     }
 
 
@@ -61,5 +69,10 @@ public class LevelOne{
         // hole
         fill(200);
         circle(hole.x, hole.y, 50);
+
+        // tries
+        textSize(20);
+        fill(0, 408, 612, 204);
+        text("try # " + tries, 40, 40);
     }
 }

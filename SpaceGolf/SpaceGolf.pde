@@ -9,6 +9,7 @@ PImage ship;
 int mx, my;
 boolean start;
 
+String currlevel;
 LevelOne one;
 
 
@@ -54,16 +55,22 @@ void showfield(float x, float y) {
 // initialize variables
 void setup() {
     size(800, 500);
+    currlevel = "one";
 
-    one = new LevelOne();
-    one.setup();
+    if (currlevel.equals("one")) {
+        one = new LevelOne();
+        one.setup();
+    }
 }
 
 void draw() {
-    one.draw();
-    if (one.hole.dist(player.pos) <= 50) {
-        start = false;
-        one.setup();
+    if (currlevel.equals("one")) {
+        one.draw();
+        if (one.hole.dist(player.pos) <= 50) {
+            start = false;
+            delay(1500);
+            one.setup();
+        }
     }
 }
 
@@ -75,7 +82,7 @@ void mouseClicked() {
 }
 
 void mouseDragged() {
-    println(mouseX - mx);
+    // println(mouseX - mx);
     for (Planet p : planets) {
         if (p.inside(mouseX, mouseY)) {
             p.move(mouseX, mouseY);
@@ -84,6 +91,9 @@ void mouseDragged() {
 }
 
 void keyPressed() {
-    if (key == ' ') start = true;
+    if (key == ' ') {
+        if (start) start = false;
+        else start = true;
+    }
     else if (key == 'q') start = false;
 }
