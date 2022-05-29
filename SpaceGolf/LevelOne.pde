@@ -1,5 +1,4 @@
 public class LevelOne{
-
     Point hole = new Point(250, 400);
     int tries;
 
@@ -69,10 +68,16 @@ public class LevelOne{
         // hole
         fill(200);
         circle(hole.x, hole.y, 50);
+        if (one.hole.dist(player.pos) <= 50 || !insideScreen()) {
+            start = false;
+            delay(1500);
+            one.setup();
+        }
 
         // tries
         textSize(20);
         fill(0, 408, 612, 204);
         text("try # " + tries, 40, 40);
+
     }
 }

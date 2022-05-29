@@ -12,6 +12,20 @@ boolean start;
 String currlevel;
 LevelOne one;
 
+void setup() {
+    size(800, 500);
+    currlevel = "one";
+
+    if (currlevel.equals("one")) {
+        one = new LevelOne();
+        one.setup();
+    }
+}
+
+void draw() {
+    if (currlevel.equals("one")) one.draw();
+}
+
 
 // draw arrow from point 1 to point 2
 void drawarrow(float x1, float y1, float x2, float y2) {
@@ -52,29 +66,11 @@ void showfield(float x, float y) {
     drawarrow(p1.x, p1.y, p2.x, p2.y);
 }
 
-// initialize variables
-void setup() {
-    size(800, 500);
-    currlevel = "one";
-
-    if (currlevel.equals("one")) {
-        one = new LevelOne();
-        one.setup();
-    }
+// find out if player is out of bounds
+boolean insideScreen() {
+    if (player.pos.x >= 0 && player.pos.x <= 500 && player.pos.y >= 0 && player.pos.y <= 500) return true;
+    return false;
 }
-
-void draw() {
-    if (currlevel.equals("one")) {
-        one.draw();
-        if (one.hole.dist(player.pos) <= 50) {
-            start = false;
-            delay(1500);
-            one.setup();
-        }
-    }
-}
-
-
 
 void mouseClicked() {
    mx = mouseX;
