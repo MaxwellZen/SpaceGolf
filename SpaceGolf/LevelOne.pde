@@ -13,7 +13,7 @@ public class LevelOne{
         planets = new ArrayList<Planet>();
         planets.add(new Planet(250, 250, 2));
         player = new Ship(250, 100, 165, 0, 5);
-        ship = loadImage("ship.png");
+        ship = loadImage("Pictures/ship.png");
         dt = 0;
         prev = System.currentTimeMillis();
 
@@ -44,40 +44,55 @@ public class LevelOne{
         dt = (cur - prev) / 1000.0;
         prev = cur;
 
-        // address each planet
-        for (Planet p : planets) {
-            if (start) p.applyForce(player);
-            p.draw();
-        }
-        // update the player
-        if (start) player.updatePos();
-        player.draw();
-        // show the preview
-        showghost();
         // show the gravitational field
         for (int i = 10; i < 500; i += 40) {
             for (int j = 10; j < 500; j += 40) {
                 showfield(i, j);
             }
         }
-        for (Button b : buttons) {
-            b.update();
-            b.display();
+
+        // address each planet
+        for (Planet p : planets) {
+            if (start) p.applyForce(player);
+            p.draw();
         }
+
+        // update the player
+        if (start) player.updatePos();
+        player.draw();
+
+        // show the preview
+        showghost();
 
         // hole
         fill(200);
         circle(hole.x, hole.y, 50);
-        if (one.hole.dist(player.pos) <= 50 || !insideScreen()) {
+
+        // game end conditions
+        if (one.hole.dist(player.pos) <= 50) {
             start = false;
             delay(1500);
             one.setup();
+        }
+
+        // inside screen stuff
+        if (! insideScreen()) {
+            
         }
 
         // tries
         textSize(20);
         fill(0, 408, 612, 204);
         text("try # " + tries, 40, 40);
+
+        // buttons
+        fill(20);
+        rect(500, 0, 300, 500);
+
+        for (Button b : buttons) {
+            b.update();
+            b.display();
+        }
 
     }
 }

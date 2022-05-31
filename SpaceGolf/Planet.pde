@@ -44,7 +44,7 @@ public class Planet {
 	}
 
 	boolean inside(int x, int y) {
-		if ((x - pos.x) * (x - pos.x) + (y - pos.y) * (y - pos.y) <= radius[c] * radius[c]) return true;
+		if (sq(x - pos.x) + sq(y - pos.y) <= sq(radius[c])) return true;
 		else return false;
 	}
 

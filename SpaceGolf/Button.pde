@@ -17,8 +17,12 @@ public class Button{
     clickedOn = false;
   }
 
+  boolean mouseIn() {
+      return mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY <= y + h;
+  }
+
   void update() {
-    if (mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY <= y + h) hover = true;
+    if (mouseIn()) hover = true;
     else hover = false;
   }
 
@@ -29,33 +33,10 @@ public class Button{
     }
 
     fill(142, 80, 80);
+    if (hover) fill(255, 255, 255, 60);
+    if (clickedOn) fill(255, 255, 255, 60);
+
     rect(x, y, w, h);
-
-    if (hover) {
-      fill(255, 255, 255, 60);
-      rect(x, y, w, h);
-    }
-
-    if (clickedOn) {
-      fill(255, 255, 255, 60);
-      rect(x, y, w, h);
-    }
-  }
-
-  boolean hover() {
-    return hover;
-  }
-
-  void hover(boolean hold) {
-    hover = hold;
-  }
-
-  void clickedOn(boolean hold) {
-    clickedOn = hold;
-  }
-
-  boolean clickedOn() {
-    return clickedOn;
   }
 
 }
