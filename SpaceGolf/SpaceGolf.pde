@@ -88,20 +88,21 @@ boolean insideScreen() {
 }
 
 void showlocation() {
-    //float curX, curY;
-    //if (player.pos.x < 0 || player.pos.x > 500) {
-    //    if (player.pos.x < 0) curX = 10;
-    //    else curX = 490;
-    //    curY = min(490, max(10, player.pos.y));
-    //} else if (player.pos.y < 0 || player.pos.y > 500) {
-    //    if (player.pos.y < 0) curY = 10;
-    //    else curY = 490;
-    //    curX = min(490, max(10, player.pos.x));
-    //}
-    //Point head = new Point(curX, curY);
-    //Point direction = player.pos.minus(head).normalize();
-    //Point tail = head.minus(direction.scale(10));
-    //drawarrow(tail, head);
+    float curX = 0, curY = 0;
+    if (player.pos.x < 0 || player.pos.x > 500) {
+        if (player.pos.x < 0) curX = 10;
+        else curX = 490;
+        curY = min(490, max(10, player.pos.y));
+    } else if (player.pos.y < 0 || player.pos.y > 500) {
+        if (player.pos.y < 0) curY = 10;
+        else curY = 490;
+        curX = min(490, max(10, player.pos.x));
+    }
+    Point head = new Point(curX, curY);
+    Point direction = player.pos.minus(head).normalize();
+    Point tail = head.minus(direction.scale(20));
+    stroke(255);
+    drawarrow(tail, head);
 }
 
 void mouseClicked() {
