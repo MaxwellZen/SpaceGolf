@@ -13,18 +13,6 @@ public class LevelOne{
         planets = new ArrayList<Planet>();
         planets.add(new Planet(250, 250, 2));
         player = new Ship(250, 100, 165, 0, 5);
-        ship = loadImage("Pictures/ship.png");
-        dt = 0;
-        prev = System.currentTimeMillis();
-
-        // sidebar
-        buttons = new ArrayList<Button>();
-        buttons.add(new Button(550, 100, 1));
-        buttons.add(new Button(620, 100, 2));
-        buttons.add(new Button(690, 100, 3));
-        buttons.add(new Button(550, 170, 4));
-        buttons.add(new Button(620, 170, 5));
-        buttons.add(new Button(690, 170, 6));
 
         // hole
         fill(153);
@@ -76,9 +64,7 @@ public class LevelOne{
         }
 
         // inside screen stuff
-        if (! insideScreen()) {
-            
-        }
+        if (! insideScreen()) showlocation();
 
         // tries
         textSize(20);

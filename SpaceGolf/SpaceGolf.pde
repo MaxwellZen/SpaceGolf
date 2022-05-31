@@ -20,6 +20,20 @@ void setup() {
         one = new LevelOne();
         one.setup();
     }
+
+    ship = loadImage("Pictures/ship.png");
+    dt = 0;
+    prev = System.currentTimeMillis();
+
+    // sidebar
+    buttons = new ArrayList<Button>();
+    buttons.add(new Button(550, 100, 1));
+    buttons.add(new Button(620, 100, 2));
+    buttons.add(new Button(690, 100, 3));
+    buttons.add(new Button(550, 170, 4));
+    buttons.add(new Button(620, 170, 5));
+    buttons.add(new Button(690, 170, 6));
+
 }
 
 void draw() {
@@ -39,6 +53,7 @@ void drawarrow(float x1, float y1, float x2, float y2) {
     line(x2, y2, v1.x, v1.y);
     line(x2, y2, v2.x, v2.y);
 }
+void drawarrow(Point p1, Point p2) {drawarrow(p1.x, p1.y, p2.x, p2.y);}
 
 ArrayList<Planet> planets;
 Ship player;
@@ -70,6 +85,23 @@ void showfield(float x, float y) {
 boolean insideScreen() {
     if (player.pos.x >= 0 && player.pos.x <= 500 && player.pos.y >= 0 && player.pos.y <= 500) return true;
     return false;
+}
+
+void showlocation() {
+    //float curX, curY;
+    //if (player.pos.x < 0 || player.pos.x > 500) {
+    //    if (player.pos.x < 0) curX = 10;
+    //    else curX = 490;
+    //    curY = min(490, max(10, player.pos.y));
+    //} else if (player.pos.y < 0 || player.pos.y > 500) {
+    //    if (player.pos.y < 0) curY = 10;
+    //    else curY = 490;
+    //    curX = min(490, max(10, player.pos.x));
+    //}
+    //Point head = new Point(curX, curY);
+    //Point direction = player.pos.minus(head).normalize();
+    //Point tail = head.minus(direction.scale(10));
+    //drawarrow(tail, head);
 }
 
 void mouseClicked() {

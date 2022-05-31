@@ -59,7 +59,4 @@ public class Button{
     }
   }
 
-    rect(x, y, w, h);
-  }
-
 }
