@@ -26,6 +26,8 @@ public class Button{
     else hover = false;
   }
 
+  void select() {}
+
   void display() {
     if (img != null) {
       img.resize((int) w, (int) h);

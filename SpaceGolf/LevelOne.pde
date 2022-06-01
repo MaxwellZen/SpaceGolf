@@ -4,6 +4,7 @@ public class LevelOne{
 
     public LevelOne() {
         tries = 0;
+        hole = new Point(250, 400);
     }
 
     void setup() {

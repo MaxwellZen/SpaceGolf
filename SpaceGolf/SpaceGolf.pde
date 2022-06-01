@@ -6,11 +6,13 @@ float[] mass = {2e11, 3e11, 3e16};
 float[] radius = {50, 70, 80};
 color[] colors = {#ff0000, #00ff00, #0000ff};
 PImage ship;
-int mx, my;
 boolean start;
 
 String currlevel;
 LevelOne one;
+
+ArrayList<Planet> planets;
+Ship player;
 
 void setup() {
     size(800, 500);
@@ -55,9 +57,6 @@ void drawarrow(float x1, float y1, float x2, float y2) {
 }
 void drawarrow(Point p1, Point p2) {drawarrow(p1.x, p1.y, p2.x, p2.y);}
 
-ArrayList<Planet> planets;
-Ship player;
-
 // show path preview
 void showghost() {
     Ship ghost = new Ship(player.pos.x, player.pos.y, player.vel.x, player.vel.y, player.mass);
@@ -78,7 +77,7 @@ void showfield(float x, float y) {
     stroke(100);
     Point p1 = loc.plus(f.normalize().scale(5));
     Point p2 = loc.minus(f.normalize().scale(5));
-    drawarrow(p1.x, p1.y, p2.x, p2.y);
+    drawarrow(p2, p1);
 }
 
 // find out if player is out of bounds
@@ -88,26 +87,18 @@ boolean insideScreen() {
 }
 
 void showlocation() {
-    float curX = 0, curY = 0;
-    if (player.pos.x < 0 || player.pos.x > 500) {
-        if (player.pos.x < 0) curX = 10;
-        else curX = 490;
-        curY = min(490, max(10, player.pos.y));
-    } else if (player.pos.y < 0 || player.pos.y > 500) {
-        if (player.pos.y < 0) curY = 10;
-        else curY = 490;
-        curX = min(490, max(10, player.pos.x));
-    }
+    float curX = min(490, max(10, player.pos.x));
+    float curY = min(490, max(10, player.pos.y));
+
     Point head = new Point(curX, curY);
     Point direction = player.pos.minus(head).normalize();
     Point tail = head.minus(direction.scale(20));
+
     stroke(255);
     drawarrow(tail, head);
 }
 
 void mouseClicked() {
-   mx = mouseX;
-   my = mouseY;
 }
 
 void mouseDragged() {
