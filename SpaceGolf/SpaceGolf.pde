@@ -9,38 +9,69 @@ PImage ship;
 boolean start;
 
 String currlevel;
-LevelOne one;
+Level level;
 
 ArrayList<Planet> planets;
 Ship player;
 
 void setup() {
     size(800, 500);
-    currlevel = "one";
 
-    if (currlevel.equals("one")) {
-        one = new LevelOne();
-        one.setup();
-    }
+    level.setup();
 
     ship = loadImage("Pictures/ship.png");
     dt = 0;
     prev = System.currentTimeMillis();
 
-    // sidebar
-    buttons = new ArrayList<Button>();
-    buttons.add(new Button(550, 100, 1));
-    buttons.add(new Button(620, 100, 2));
-    buttons.add(new Button(690, 100, 3));
-    buttons.add(new Button(550, 170, 4));
-    buttons.add(new Button(620, 170, 5));
-    buttons.add(new Button(690, 170, 6));
-
 }
 
 void draw() {
-    if (currlevel.equals("one")) one.draw();
+    background(20);
+    
+    // update time variables
+    long cur = System.currentTimeMillis();
+    dt = (cur - prev) / 1000.0;
+    prev = cur;
+
+    level.play();
 }
+
+void mouseClicked() {
+    for (Planet p : planets) {
+        if (p.inside(mouseX, mouseY) && (level.stage==1 || level.stage==2)) {
+            level.stage = 2;
+            level.selected = p;
+        }
+    }
+}
+
+void mouseDragged() {
+    // println(mouseX - mx);
+    for (Planet p : planets) {
+        if (p.inside(mouseX, mouseY)) {
+            p.move(mouseX, mouseY);
+        }
+    }
+}
+
+void keyPressed() {
+    if (key == ' ') {
+        if (start) start = false;
+        else start = true;
+    }
+    else if (key == 'q') start = false;
+}
+
+
+//         )     (    (       (      (            )             (       )     ) (
+//      ( /(     )\ ) )\ )    )\ )   )\ )      ( /(   (    *   ))\ ) ( /(  ( /( )\ )
+//      )\())(  (()/((()/((  (()/(  (()/(   (  )\())  )\ ` )  /(()/( )\()) )\()|()/(
+//     ((_)\ )\  /(_))/(_))\  /(_))  /(_))  )\((_)\ (((_) ( )(_))(_)|(_)\ ((_)\ /(_))
+//      _((_|(_)(_)) (_))((_)(_))   (_))_| ((_)_((_))\___(_(_()|_))   ((_) _((_|_))
+//     | || | __| |  | _ \ __| _ \  | |_| | | | \| ((/ __|_   _|_ _| / _ \| \| / __|
+//     | __ | _|| |__|  _/ _||   /  | __| |_| | .` || (__  | |  | | | (_) | .` \__ \
+//     |_||_|___|____|_| |___|_|_\  |_|  \___/|_|\_| \___| |_| |___| \___/|_|\_|___/
+
 
 
 // draw arrow from point 1 to point 2
@@ -96,24 +127,4 @@ void showlocation() {
 
     stroke(255);
     drawarrow(tail, head);
-}
-
-void mouseClicked() {
-}
-
-void mouseDragged() {
-    // println(mouseX - mx);
-    for (Planet p : planets) {
-        if (p.inside(mouseX, mouseY)) {
-            p.move(mouseX, mouseY);
-        }
-    }
-}
-
-void keyPressed() {
-    if (key == ' ') {
-        if (start) start = false;
-        else start = true;
-    }
-    else if (key == 'q') start = false;
 }
