@@ -1,3 +1,6 @@
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+
 float G = 6.67e-11;
 long prev;
 float dt;
@@ -16,7 +19,8 @@ Ship player;
 
 void setup() {
     size(800, 500);
-
+    
+    level = new Level();
     level.setup();
 
     ship = loadImage("Pictures/ship.png");
@@ -26,8 +30,7 @@ void setup() {
 }
 
 void draw() {
-    background(20);
-    
+
     // update time variables
     long cur = System.currentTimeMillis();
     dt = (cur - prev) / 1000.0;
@@ -37,12 +40,15 @@ void draw() {
 }
 
 void mouseClicked() {
+    boolean found = false;
     for (Planet p : planets) {
         if (p.inside(mouseX, mouseY) && (level.stage==1 || level.stage==2)) {
             level.stage = 2;
             level.selected = p;
+            found = true;
         }
     }
+    if (!found) level.stage = 1;
 }
 
 void mouseDragged() {
@@ -56,10 +62,9 @@ void mouseDragged() {
 
 void keyPressed() {
     if (key == ' ') {
-        if (start) start = false;
-        else start = true;
+        level.stage = 3;
     }
-    else if (key == 'q') start = false;
+    else if (key == 'q') level.stage = 1;
 }
 
 

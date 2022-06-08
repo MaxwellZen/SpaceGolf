@@ -23,16 +23,6 @@ public class Level{
         buttons.add(new Button(620, 170, 5));
         buttons.add(new Button(690, 170, 6));
 
-        start = false;
-
-        // hole
-        fill(153);
-        circle(hole.x, hole.y, 50);
-
-        // tries
-        textSize(20);
-        fill(0, 408, 612, 204);
-        text("try # " + tries, 40, 40);
     }
 
     void play() {
@@ -52,20 +42,32 @@ public class Level{
         tries = 0;
 
         // parse dat shit
-        String path = "LevelData/level" + levelnum.toString() + ".txt";
-        Scanner s = new Scanner(new File(path));
+        try {
+            String path = "LevelData/level" + String.valueOf(levelnum) + ".txt";
+            byte[] bytes = loadBytes(path);
+            String str = new String(bytes);
+            Scanner s = new Scanner(str);
 
-        s.next();
-        hole = new Point(s.nextInt(), s.nextInt());
+            println(s.next());
+            hole = new Point(s.nextInt(), s.nextInt());
 
-        s.next();
-        player = new Ship(s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt());
+            s.next();
+            player = new Ship(s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt());
 
-        s.next();
-        int numplanets = s.nextInt();
-        planets = new ArrayList<Planet>();
-        for (int i = 0; i < numplanets; i++)
-            planets.add(new Planet(s.nextInt(), s.nextInt(), s.nextInt()));
+            s.next();
+            int numplanets = s.nextInt();
+            planets = new ArrayList<Planet>();
+            for (int i = 0; i < numplanets; i++)
+                planets.add(new Planet(s.nextInt(), s.nextInt(), s.nextInt()));
+
+            s.close();
+        } catch (Exception e) {
+            println(e);
+            println("bruh u suck");
+        }
+
+        stage = 1;
+
     }
 
     void planning() {
@@ -124,13 +126,6 @@ public class Level{
         fill(200);
         circle(hole.x, hole.y, 50);
 
-        // game end conditions
-        if (one.hole.dist(player.pos) <= 50) {
-            start = false;
-            delay(1500);
-            one.setup();
-        }
-
         // inside screen stuff
         if (! insideScreen()) showlocation();
 
@@ -178,10 +173,8 @@ public class Level{
         circle(hole.x, hole.y, 50);
 
         // game end conditions
-        if (one.hole.dist(player.pos) <= 50) {
-            start = false;
-            delay(1500);
-            one.setup();
+        if (hole.dist(player.pos) <= 50) {
+            stage = 0;
         }
 
         // inside screen stuff
