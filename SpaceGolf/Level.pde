@@ -116,7 +116,7 @@ public class Level{
 
     void planetselect() {
         background(20);
-        println("button selected " + bselected.num);
+        // println("button selected " + bselected.num);
 
         // show the gravitational field
         for (int i = 10; i < 500; i += 40) {

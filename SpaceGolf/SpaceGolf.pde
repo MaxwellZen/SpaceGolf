@@ -55,10 +55,15 @@ void mouseClicked() {
 }
 
 void mouseDragged() {
+    // boolean intersect = false;
     // println(mouseX - mx);
     for (Planet p : planets) {
         if (p.inside(mouseX, mouseY)) {
-            p.move(mouseX, mouseY);
+            boolean intersect = false;
+            for (Planet q : planets) {
+                if (p.num != q.num && dist(mouseX, mouseY, q.pos.x, q.pos.y) < p.r + q.r + 10) intersect = true;
+            }
+            if (!intersect) p.move(mouseX, mouseY);
         }
     }
 }
