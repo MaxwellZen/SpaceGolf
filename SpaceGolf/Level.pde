@@ -86,7 +86,6 @@ public class Level{
         for (Planet p : planets) p.draw();
 
         // address each button
-        // buttons
         fill(20);
         rect(500, 0, 300, 500);
 
@@ -117,6 +116,7 @@ public class Level{
 
     void planetselect() {
         background(20);
+        println("button selected " + bselected.num);
 
         // show the gravitational field
         for (int i = 10; i < 500; i += 40) {
@@ -133,8 +133,9 @@ public class Level{
 
         // address each button
         if (bselected != null) bselected.clickedOn = true;
-        if (mousePressed) {
-            for (Button b : buttons) {
+        for (Button b : buttons) {
+            b.update();
+            if (mousePressed) {
                 if (b.mouseIn() && b != bselected) {
                     bselected = null;
                     bselected = b;
@@ -144,11 +145,11 @@ public class Level{
                     stage = 1;
                 }
             }
-            if (0 <= mouseX && mouseX <= 500 && 0 <= mouseY && mouseY <= 500) {
-                planets.add(new Planet(mouseX, mouseY));
-                bselected = null;
-                stage = 1;
-            }
+        }
+        if (mousePressed == true && bselected != null && 0 <= mouseX && mouseX <= 500 && 0 <= mouseY && mouseY <= 500) {
+            planets.add(new Planet(mouseX, mouseY, bselected.num));
+            bselected = null;
+            stage = 1;
         }
 
         // update the player

@@ -59,6 +59,6 @@ public class Button{
             fill(255, 255, 255, 60);
             rect(x, y, w, h);
         }
-    }
 
     }
+}
