@@ -1,7 +1,6 @@
 public class Planet {
 	Point pos;
 	int num;
-	// int c;
 	int r;
 	PImage img;
 
@@ -18,29 +17,19 @@ public class Planet {
 
 	Planet(float x, float y, int n) {
 		pos = new Point(x, y);
-		num = n;
-		r = radius[n];
+		setcolor(n);
 	}
 
-	// draw planet as a circle
-	// void draw() {
-	// 	fill(colors[]);
-	// 	stroke(0);
-	// 	circle(pos.x, pos.y, 2*radius[c]);
-	// }
-	void draw() {
-		String name = "";
-        if (num == 0) name = "Pictures/zero.png";
-        if (num == 1) name = "Pictures/one.png";
-        if (num == 2) name = "Pictures/two.png";
-        if (num == 3) name = "Pictures/three.png";
-        if (num == 4) name = "Pictures/four.png";
-        if (num == 5) name = "Pictures/five.png";
-        if (num == 6) name = "Pictures/six.png";
-        if (num == 7) name = "Pictures/seven.png";
+	void setcolor(int n) {
+		num = n;
+		r = radius[n];
 
+		String name = "Pictures/planet" + String.valueOf(num+1) + ".png";
 		img = loadImage(name);
-        img.resize(r * 2, r * 2);
+		img.resize(r * 2, r * 2);
+	}
+
+	void draw() {
         image(img, pos.x - r, pos.y - r);
 	}
 
@@ -63,8 +52,7 @@ public class Planet {
 	}
 
 	boolean inside(int x, int y) {
-		if (sq(x - pos.x) + sq(y - pos.y) <= sq(r)) return true;
-		else return false;
+		return sq(x - pos.x) + sq(y - pos.y) <= sq(r);
 	}
 
 	void move(float x, float y) {

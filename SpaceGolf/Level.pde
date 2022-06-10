@@ -6,11 +6,13 @@ public class Level{
     //        2 if in planning stage + planet is selected
     //        3 if in release stage
     Planet selected;
-    Button bselected;
+    PImage holeimg;
 
     public Level() {
         levelnum = 1;
         stage = 0;
+        holeimg = loadImage("Pictures/hole.png");
+        holeimg.resize(50, 50);
     }
 
     void setup() {
@@ -27,7 +29,6 @@ public class Level{
     }
 
     void play() {
-        println(stage);
         if (stage==0) {
             setuplevel();
         } else if (stage==1) {
@@ -75,108 +76,59 @@ public class Level{
     void planning() {
         background(20);
 
-        // show the gravitational field
-        for (int i = 10; i < 500; i += 40) {
-            for (int j = 10; j < 500; j += 40) {
-                showfield(i, j);
-            }
-        }
+        showfield();
 
-        // address each planet
         for (Planet p : planets) p.draw();
 
-        // address each button
-        fill(20);
-        rect(500, 0, 300, 500);
-
-        for (Button b : buttons) {
-            b.update();
-            b.display();
-            if (mousePressed && b.mouseIn()) {
-                bselected = b;
-                stage = 2;
-            }
-        }
-
-        // update the player
         player.draw();
 
-        // show the preview
         showghost();
 
-        // hole
-        PImage img = loadImage("Pictures/hole.png");
-        img.resize(50, 50);
-        image(img, hole.x - 25, hole.y - 25);
+        image(holeimg, hole.x - 25, hole.y - 25);
 
-        // tries
-        textSize(20);
-        fill(0, 408, 612, 204);
-        text("try # " + tries, 40, 40);
+        showtries();
+
+        fill(30);
+        rect(500, 0, 300, 500);
+
     }
 
     void planetselect() {
         background(20);
-        // println("button selected " + bselected.num);
 
-        // show the gravitational field
-        for (int i = 10; i < 500; i += 40) {
-            for (int j = 10; j < 500; j += 40) {
-                showfield(i, j);
-            }
-        }
+        showfield();
 
-        // address each planet
-        for (Planet p : planets) {
-            if (start) p.applyForce(player);
-            p.draw();
-        }
+        for (Planet p : planets) p.draw();
 
         // address each button
-        if (bselected != null) bselected.clickedOn = true;
-        for (Button b : buttons) {
+        for (int i = 0; i < 6; i++) {
+            Button b = buttons.get(i);
             b.update();
-            if (mousePressed) {
-                if (b.mouseIn() && b != bselected) {
-                    bselected = null;
-                    bselected = b;
-                }
-                else if (b.mouseIn() && b == bselected) {
-                    bselected = null;
-                    stage = 1;
-                }
+            if (mousePressed && b.mouseIn()) {
+                buttonSelect(i);
+                selected.setcolor(i);
             }
-        }
-        if (mousePressed == true && bselected != null && 0 <= mouseX && mouseX <= 500 && 0 <= mouseY && mouseY <= 500) {
-            planets.add(new Planet(mouseX, mouseY, bselected.num));
-            bselected = null;
-            stage = 1;
         }
 
         // update the player
-        if (start) player.updatePos();
         player.draw();
 
         // show the preview
         showghost();
 
         // hole
-        PImage img = loadImage("Pictures/hole.png");
-        img.resize(50, 50);
-        image(img, hole.x - 25, hole.y - 25);
+        image(holeimg, hole.x - 25, hole.y - 25);
 
         // inside screen stuff
         if (! insideScreen()) showlocation();
 
         // tries
-        textSize(20);
-        fill(0, 408, 612, 204);
-        text("try # " + tries, 40, 40);
+        showtries();
 
-        // buttons
-        fill(20);
+        fill(30);
         rect(500, 0, 300, 500);
 
+        // buttons
         for (Button b : buttons) {
             b.update();
             b.display();
@@ -188,31 +140,23 @@ public class Level{
         background(20);
 
         // show the gravitational field
-        for (int i = 10; i < 500; i += 40) {
-            for (int j = 10; j < 500; j += 40) {
-                showfield(i, j);
-            }
-        }
+        showfield();
 
         // address each planet
         for (Planet p : planets) {
-            if (start) p.applyForce(player);
+            p.applyForce(player);
             p.draw();
         }
 
         // update the player
-        if (start) player.updatePos();
+        player.updatePos();
         player.draw();
 
         // show the preview
         showghost();
 
         // hole
-        // fill(200);
-        // circle(hole.x, hole.y, 50);
-        PImage img = loadImage("Pictures/hole.png");
-        img.resize(50, 50);
-        image(img, hole.x - 25, hole.y - 25);
+        image(holeimg, hole.x - 25, hole.y - 25);
 
         // game end conditions
         if (hole.dist(player.pos) <= 50) {
@@ -222,19 +166,26 @@ public class Level{
         // inside screen stuff
         if (! insideScreen()) showlocation();
 
+        showtries();
+
+        fill(30);
+        rect(500, 0, 300, 500);
+
+    }
+
+    //         )     (    (       (      (            )             (       )     ) (
+    //      ( /(     )\ ) )\ )    )\ )   )\ )      ( /(   (    *   ))\ ) ( /(  ( /( )\ )
+    //      )\())(  (()/((()/((  (()/(  (()/(   (  )\())  )\ ` )  /(()/( )\()) )\()|()/(
+    //     ((_)\ )\  /(_))/(_))\  /(_))  /(_))  )\((_)\ (((_) ( )(_))(_)|(_)\ ((_)\ /(_))
+    //      _((_|(_)(_)) (_))((_)(_))   (_))_| ((_)_((_))\___(_(_()|_))   ((_) _((_|_))
+    //     | || | __| |  | _ \ __| _ \  | |_| | | | \| ((/ __|_   _|_ _| / _ \| \| / __|
+    //     | __ | _|| |__|  _/ _||   /  | __| |_| | .` || (__  | |  | | | (_) | .` \__ \
+    //     |_||_|___|____|_| |___|_|_\  |_|  \___/|_|\_| \___| |_| |___| \___/|_|\_|___/
+
+    void showtries() {
         // tries
         textSize(20);
         fill(0, 408, 612, 204);
         text("try # " + tries, 40, 40);
-
-        // buttons
-        fill(20);
-        rect(500, 0, 300, 500);
-
-        for (Button b : buttons) {
-            b.update();
-            b.display();
-        }
-
     }
 }
