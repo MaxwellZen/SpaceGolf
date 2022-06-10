@@ -59,7 +59,7 @@ void mouseDragged() {
         if (p.inside(mouseX, mouseY)) {
             boolean intersect = false;
             for (Planet q : planets) {
-                if (p.num != q.num && dist(mouseX, mouseY, q.pos.x, q.pos.y) < p.r + q.r + 10) intersect = true;
+                if ((q.pos.x != p.pos.x || q.pos.y != p.pos.y) && dist(mouseX, mouseY, q.pos.x, q.pos.y) < p.r + q.r + 10) intersect = true;
             }
             if (!intersect) p.move(mouseX, mouseY);
         }
@@ -105,6 +105,7 @@ void showghost() {
     // dotted line displaying next 3 seconds
     dt = 0.1;
     for (int i = 0; i < 30; i++) {
+        println(planets.size());
         for (Planet p : planets) p.applyForce(ghost);
         ghost.updatePos();
         if (i%3==2) ghost.drawghost();
