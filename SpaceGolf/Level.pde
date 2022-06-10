@@ -105,8 +105,9 @@ public class Level{
         showghost();
 
         // hole
-        fill(200);
-        circle(hole.x, hole.y, 50);
+        PImage img = loadImage("Pictures/hole.png");
+        img.resize(50, 50);
+        image(img, hole.x - 25, hole.y - 25);
 
         // tries
         textSize(20);
@@ -160,8 +161,9 @@ public class Level{
         showghost();
 
         // hole
-        fill(200);
-        circle(hole.x, hole.y, 50);
+        PImage img = loadImage("Pictures/hole.png");
+        img.resize(50, 50);
+        image(img, hole.x - 25, hole.y - 25);
 
         // inside screen stuff
         if (! insideScreen()) showlocation();
@@ -206,8 +208,11 @@ public class Level{
         showghost();
 
         // hole
-        fill(200);
-        circle(hole.x, hole.y, 50);
+        // fill(200);
+        // circle(hole.x, hole.y, 50);
+        PImage img = loadImage("Pictures/hole.png");
+        img.resize(50, 50);
+        image(img, hole.x - 25, hole.y - 25);
 
         // game end conditions
         if (hole.dist(player.pos) <= 50) {

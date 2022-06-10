@@ -48,15 +48,13 @@ void mouseClicked() {
             found = true;
         }
     }
-    // for (Button b : buttons) {
-    //     if (b.mouseIn()) b.clickedOn = true;
-    // }
+    for (Button b : buttons) {
+        if (b.mouseIn()) b.clickedOn = true;
+    }
     if (!found) level.stage = 1;
 }
 
 void mouseDragged() {
-    // boolean intersect = false;
-    // println(mouseX - mx);
     for (Planet p : planets) {
         if (p.inside(mouseX, mouseY)) {
             boolean intersect = false;
