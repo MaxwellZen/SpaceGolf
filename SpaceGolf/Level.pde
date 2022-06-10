@@ -6,6 +6,7 @@ public class Level{
     //        2 if in planning stage + planet is selected
     //        3 if in release stage
     Planet selected;
+    Button bselected;
 
     public Level() {
         levelnum = 1;
@@ -26,6 +27,7 @@ public class Level{
     }
 
     void play() {
+        println(stage);
         if (stage==0) {
             setuplevel();
         } else if (stage==1) {
@@ -83,6 +85,20 @@ public class Level{
         // address each planet
         for (Planet p : planets) p.draw();
 
+        // address each button
+        // buttons
+        fill(20);
+        rect(500, 0, 300, 500);
+
+        for (Button b : buttons) {
+            b.update();
+            b.display();
+            if (mousePressed && b.mouseIn()) {
+                bselected = b;
+                stage = 2;
+            }
+        }
+
         // update the player
         player.draw();
 
@@ -113,6 +129,26 @@ public class Level{
         for (Planet p : planets) {
             if (start) p.applyForce(player);
             p.draw();
+        }
+
+        // address each button
+        if (bselected != null) bselected.clickedOn = true;
+        if (mousePressed) {
+            for (Button b : buttons) {
+                if (b.mouseIn() && b != bselected) {
+                    bselected = null;
+                    bselected = b;
+                }
+                else if (b.mouseIn() && b == bselected) {
+                    bselected = null;
+                    stage = 1;
+                }
+            }
+            if (0 <= mouseX && mouseX <= 500 && 0 <= mouseY && mouseY <= 500) {
+                planets.add(new Planet(mouseX, mouseY));
+                bselected = null;
+                stage = 1;
+            }
         }
 
         // update the player

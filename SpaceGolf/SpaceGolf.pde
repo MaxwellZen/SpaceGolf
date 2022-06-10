@@ -19,7 +19,7 @@ Ship player;
 
 void setup() {
     size(800, 500);
-    
+
     level = new Level();
     level.setup();
 
@@ -48,6 +48,9 @@ void mouseClicked() {
             found = true;
         }
     }
+    // for (Button b : buttons) {
+    //     if (b.mouseIn()) b.clickedOn = true;
+    // }
     if (!found) level.stage = 1;
 }
 
