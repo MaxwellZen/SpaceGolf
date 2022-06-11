@@ -29,8 +29,6 @@ public class Button{
         else hover = false;
     }
 
-    void select() {}
-
     void display() {
 
         image(img, x, y);

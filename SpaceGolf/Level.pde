@@ -1,21 +1,23 @@
 public class Level{
     Point hole;
+    // levelnum: 0 - game menu
+    //           1-5 - actual levels
     int tries, levelnum, stage;
-    // stage: 0 if setup the current level
-    //        1 if in general planning stage
-    //        2 if in planning stage + planet is selected
-    //        3 if in release stage
+    // stage: 0 - setup the current level
+    //        1 - general planning stage
+    //        2 - planning stage + planet is selected
+    //        3 - release stage
+    //        4 - victory stage
     Planet selected;
-    PImage holeimg;
+    PImage holeimg, screen;
+    ArrayList<Star> stars;
+    long stop;
 
     public Level() {
-        levelnum = 1;
+        levelnum = 0;
         stage = 0;
         holeimg = loadImage("Pictures/hole.png");
         holeimg.resize(50, 50);
-    }
-
-    void setup() {
 
         // sidebar
         buttons = new ArrayList<Button>();
@@ -26,23 +28,41 @@ public class Level{
         buttons.add(new Button(620, 170, 5));
         buttons.add(new Button(690, 170, 6));
 
+        // menu
+        lbuttons = new ArrayList<LevelButton>();
+        lbuttons.add(new LevelButton(80, 350, true));
+        lbuttons.add(new LevelButton(240, 350, true));
+        lbuttons.add(new LevelButton(400, 350, true));
+        lbuttons.add(new LevelButton(560, 350, false));
+        lbuttons.add(new LevelButton(720, 350, false));
+
     }
 
     void play() {
-        if (stage==0) {
-            setuplevel();
-        } else if (stage==1) {
-            planning();
-        } else if (stage==2) {
-            planetselect();
-        } else if (stage==3) {
-            release();
+        if (levelnum==0) menu();
+        else if (stage==0) setuplevel();
+        else if (stage==1) planning();
+        else if (stage==2) planetselect();
+        else if (stage==3) release();
+        else if (stage==4) victory();
+    }
+
+    void menu() {
+        background(20);
+        textSize(50);
+        fill(153, 0, 153);
+        textAlign(CENTER);
+        text("SPACE GOLF", 400, 100);
+
+        for (LevelButton lb : lbuttons) {
+            lb.update();
+            lb.display();
         }
     }
 
     void setuplevel() {
 
-        tries = 0;
+        tries = 1;
 
         // parse dat shit
         try {
@@ -51,7 +71,7 @@ public class Level{
             String str = new String(bytes);
             Scanner s = new Scanner(str);
 
-            println(s.next());
+            s.next();
             hole = new Point(s.nextInt(), s.nextInt());
 
             s.next();
@@ -74,33 +94,13 @@ public class Level{
     }
 
     void planning() {
-        background(20);
-
-        showfield();
-
-        for (Planet p : planets) p.draw();
-
-        player.draw();
-
-        showghost();
-
-        image(holeimg, hole.x - 25, hole.y - 25);
-
-        showtries();
-
-        fill(30);
-        rect(500, 0, 300, 500);
-
+        display();
     }
 
     void planetselect() {
-        background(20);
+        display();
 
-        showfield();
-
-        for (Planet p : planets) p.draw();
-
-        // address each button
+        // buttons
         for (int i = 0; i < 6; i++) {
             Button b = buttons.get(i);
             b.update();
@@ -109,68 +109,37 @@ public class Level{
                 selected.setcolor(i);
             }
         }
-
-        // update the player
-        player.draw();
-
-        // show the preview
-        showghost();
-
-        // hole
-        image(holeimg, hole.x - 25, hole.y - 25);
-
-        // inside screen stuff
-        if (! insideScreen()) showlocation();
-
-        // tries
-        showtries();
-
-        fill(30);
-        rect(500, 0, 300, 500);
-
-        // buttons
-        for (Button b : buttons) {
-            b.update();
-            b.display();
-        }
+        for (Button b : buttons) b.display();
     }
 
 
     void release() {
-        background(20);
-
-        // show the gravitational field
-        showfield();
-
-        // address each planet
-        for (Planet p : planets) {
-            p.applyForce(player);
-            p.draw();
-        }
-
-        // update the player
+        for (Planet p : planets) p.applyForce(player);
         player.updatePos();
-        player.draw();
 
-        // show the preview
-        showghost();
+        display();
 
-        // hole
-        image(holeimg, hole.x - 25, hole.y - 25);
-
-        // game end conditions
         if (hole.dist(player.pos) <= 50) {
-            stage = 0;
+            stage = 4;
+            save("temp.tif");
+            screen = loadImage("temp.tif");
+            stars = new ArrayList<Star>();
+            int numstars = 10;
+            for (int i = 0; i < numstars; i++) {
+                stars.add(new Star(400, 200, TWO_PI*i/numstars));
+            }
+            stop = cur + 4000;
         }
 
-        // inside screen stuff
-        if (! insideScreen()) showlocation();
+    }
 
-        showtries();
-
-        fill(30);
-        rect(500, 0, 300, 500);
-
+    void victory() {
+        image(screen, 0, 0, 800, 500);
+        for (Star star : stars) {
+            star.updatePos();
+            star.draw();
+        }
+        if (cur > stop) levelnum = 0;
     }
 
     //         )     (    (       (      (            )             (       )     ) (
@@ -182,10 +151,30 @@ public class Level{
     //     | __ | _|| |__|  _/ _||   /  | __| |_| | .` || (__  | |  | | | (_) | .` \__ \
     //     |_||_|___|____|_| |___|_|_\  |_|  \___/|_|\_| \___| |_| |___| \___/|_|\_|___/
 
+    void display() {
+        background(20);
+
+        showfield();
+
+        for (Planet p : planets) p.draw();
+
+        player.draw();
+        if (! insideScreen()) showlocation();
+
+        showghost();
+
+        image(holeimg, hole.x - 25, hole.y - 25);
+
+        showtries();
+
+        fill(30);
+        rect(500, 0, 300, 500);
+    }
+
     void showtries() {
-        // tries
         textSize(20);
         fill(0, 408, 612, 204);
+        textAlign(LEFT);
         text("try # " + tries, 40, 40);
     }
 }

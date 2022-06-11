@@ -1,14 +1,12 @@
 import java.util.Scanner;
 
 float G = 6.67e-11;
-long prev;
+long prev, cur;
 float dt;
-int numcolors = 3;
 float[] mass = {1e16, 2e16, 3e16, 4e16, 5e16, 6e16};
 int[] radius = {30, 40, 50, 60, 70, 80};
-color[] colors = {#ff0000, #00ff00, #0000ff};
-boolean start;
 ArrayList<Button> buttons;
+ArrayList<LevelButton> lbuttons;
 
 String currlevel;
 Level level;
@@ -18,9 +16,9 @@ Ship player;
 
 void setup() {
     size(800, 500);
+    pixelDensity(2);
 
     level = new Level();
-    level.setup();
 
     dt = 0;
     prev = System.currentTimeMillis();
@@ -30,7 +28,7 @@ void setup() {
 void draw() {
 
     // update time variables
-    long cur = System.currentTimeMillis();
+    cur = System.currentTimeMillis();
     dt = (cur - prev) / 1000.0;
     prev = cur;
 
@@ -38,21 +36,20 @@ void draw() {
 }
 
 void mousePressed() {
-    boolean found = false;
-    for (Planet p : planets) {
-        if (p.inside(mouseX, mouseY) && (level.stage==1 || level.stage==2)) {
-            level.stage = 2;
-            level.selected = p;
-            buttonSelect(p.num);
-            found = true;
+    if (level.stage==1 || level.stage==2) {
+        boolean found = false;
+        for (Planet p : planets) {
+            if (p.inside(mouseX, mouseY) && (level.stage==1 || level.stage==2)) {
+                level.stage = 2;
+                level.selected = p;
+                buttonSelect(p.num);
+                found = true;
+            }
         }
-    }
-    for (Button b : buttons) {
-        if (b.mouseIn()) b.isSelected = true;
-    }
-    if (level.stage==2 && mouseX<500 && !found) {
-        level.selected = null;
-        level.stage=1;
+        if (level.stage==2 && mouseX<500 && !found) {
+            level.selected = null;
+            level.stage=1;
+        }
     }
 }
 
@@ -119,6 +116,7 @@ void showghost() {
         ghost.updatePos();
         if (i%6==5) ghost.drawghost();
     }
+    dt = (cur - prev) / 1000.0;
 }
 
 // draw an arrow displaying the net field at a given point
