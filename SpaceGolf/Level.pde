@@ -49,9 +49,10 @@ public class Level{
 
     void menu() {
         background(20);
-        textSize(50);
+        textSize(60);
         textAlign(CENTER);
-        text("SPACE GOLF", 400, 100);
+        fill(225, 225, 225);
+        text("SPACE GOLF", 400, 150);
 
         for (LevelButton lb : lbuttons) {
             lb.update();

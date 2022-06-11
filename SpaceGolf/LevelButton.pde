@@ -35,7 +35,6 @@ public class LevelButton {
     void display() {
         noStroke();
 
-        // circle(x, y, 2*r);
         PImage p = loadImage("Pictures/planet" + String.valueOf(num) + ".png");
 		p.resize((int)r * 2, (int)r * 2);
         image(p, (int)x - r, (int)y - r);
