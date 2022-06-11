@@ -14,8 +14,9 @@ public class Level{
     long stop;
 
     public Level() {
-        levelnum = 0;
+        levelnum = 1;
         stage = 0;
+        tries = 1;
         holeimg = loadImage("Pictures/hole.png");
         holeimg.resize(50, 50);
 
@@ -61,8 +62,6 @@ public class Level{
     }
 
     void setuplevel() {
-
-        tries = 1;
 
         // parse dat shit
         try {
@@ -160,6 +159,10 @@ public class Level{
 
         player.draw();
         if (! insideScreen()) showlocation();
+        if (! insideScreen() && player.pos.dist(new Point(0, 0)) > 750) {
+            stage = 0;
+            tries += 1;
+        }
 
         showghost();
 
