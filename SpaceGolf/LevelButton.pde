@@ -40,7 +40,7 @@ public class LevelButton {
         image(p, (int)x - r, (int)y - r);
 
         // set button color
-        if (reached && hover) fill(0, 0, 0, 0);
+        if (reached && hover) fill(255, 255, 255, 70);
         else if (reached) fill(0, 0, 0, 10);
         else fill(0, 0, 0, 95);
         circle(x, y, 2*r);
@@ -51,6 +51,8 @@ public class LevelButton {
             rotate(PI/2 + theta);
             image(img, -12, -20, 24, 40);
             popMatrix();
+
+            if (mousePressed == true) level.levelnum = num;
         }
     }
 }

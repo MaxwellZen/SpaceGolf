@@ -58,6 +58,21 @@ public class Level{
             lb.update();
             lb.display();
         }
+
+        textSize(13);
+        fill(255);
+        textAlign(CENTER);
+        text("LV 1", 80, 410);
+        text("LV 2", 241, 410);
+        text("LV 3", 402, 410);
+        text("LV 4", 563, 410);
+        text("LV 5", 724, 410);
+
+        // lbuttons.add(new LevelButton(80, 350, 1, true));
+        // lbuttons.add(new LevelButton(240, 350, 2, true));
+        // lbuttons.add(new LevelButton(400, 350, 3, true));
+        // lbuttons.add(new LevelButton(560, 350, 4, false));
+        // lbuttons.add(new LevelButton(720, 350, 5, false));
     }
 
     void setuplevel() {
