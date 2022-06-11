@@ -5,10 +5,12 @@ public class LevelButton {
     float r;
     float theta;
     PImage img;
+    int num;
 
-    public LevelButton(float xcor, float ycor, boolean reach) {
+    public LevelButton(float xcor, float ycor, int n, boolean reach) {
         x = xcor;
         y = ycor;
+        num = n;
         reached = reach;
 
         hover = false;
@@ -32,10 +34,16 @@ public class LevelButton {
 
     void display() {
         noStroke();
+
+        // circle(x, y, 2*r);
+        PImage p = loadImage("Pictures/planet" + String.valueOf(num) + ".png");
+		p.resize((int)r * 2, (int)r * 2);
+        image(p, (int)x - r, (int)y - r);
+
         // set button color
-        if (reached && hover) fill(51, 204, 51);
-        else if (reached) fill(0, 128, 0);
-        else fill(77, 0, 0);
+        if (reached && hover) fill(0, 0, 0, 0);
+        else if (reached) fill(0, 0, 0, 10);
+        else fill(0, 0, 0, 95);
         circle(x, y, 2*r);
 
         if (reached && hover) {

@@ -14,7 +14,7 @@ public class Level{
     long stop;
 
     public Level() {
-        levelnum = 1;
+        levelnum = 0;
         stage = 0;
         tries = 1;
         holeimg = loadImage("Pictures/hole.png");
@@ -31,12 +31,11 @@ public class Level{
 
         // menu
         lbuttons = new ArrayList<LevelButton>();
-        lbuttons.add(new LevelButton(80, 350, true));
-        lbuttons.add(new LevelButton(240, 350, true));
-        lbuttons.add(new LevelButton(400, 350, true));
-        lbuttons.add(new LevelButton(560, 350, false));
-        lbuttons.add(new LevelButton(720, 350, false));
-
+        lbuttons.add(new LevelButton(80, 350, 1, true));
+        lbuttons.add(new LevelButton(240, 350, 2, true));
+        lbuttons.add(new LevelButton(400, 350, 3, true));
+        lbuttons.add(new LevelButton(560, 350, 4, false));
+        lbuttons.add(new LevelButton(720, 350, 5, false));
     }
 
     void play() {
@@ -51,7 +50,6 @@ public class Level{
     void menu() {
         background(20);
         textSize(50);
-        fill(153, 0, 153);
         textAlign(CENTER);
         text("SPACE GOLF", 400, 100);
 
@@ -127,7 +125,7 @@ public class Level{
             for (int i = 0; i < numstars; i++) {
                 stars.add(new Star(400, 200, TWO_PI*i/numstars));
             }
-            stop = cur + 4000;
+            stop = cur + 3000;
         }
 
     }
@@ -175,9 +173,9 @@ public class Level{
     }
 
     void showtries() {
-        textSize(20);
-        fill(0, 408, 612, 204);
+        textSize(16);
+        fill(255);
         textAlign(LEFT);
-        text("try # " + tries, 40, 40);
+        text("tries: " + tries, 30, 50);
     }
 }
