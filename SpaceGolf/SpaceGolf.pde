@@ -79,6 +79,7 @@ void mouseDragged() {
 void keyPressed() {
     if (key == ' ') {
         level.stage = 3;
+        level.stop = cur + 8000;
     }
     else if (key == 'q') level.stage = 1;
 }

@@ -32,7 +32,6 @@ public class Level{
         // menu
         lbuttons = new ArrayList<LevelButton>();
         for (int i = 1; i <= 5; i++) {
-            // println(i <= maxlevel);
             lbuttons.add(new LevelButton(80 + 160*(i-1), 350, i, (i <= maxlevel)));
         }
     }
@@ -123,16 +122,31 @@ public class Level{
 
         display();
 
-        if (hole.dist(player.pos) <= 50) {
+        if (hole.dist(player.pos) <= 45) {
             stage = 4;
             save("temp.tif");
             screen = loadImage("temp.tif");
+
+            maxlevel = max(maxlevel, levelnum+1);
+            writemax();
+            if (levelnum < 5) lbuttons.get(levelnum).reached = true;
+
             stars = new ArrayList<Star>();
             int numstars = 10;
             for (int i = 0; i < numstars; i++) {
                 stars.add(new Star(player.pos.x, player.pos.y, TWO_PI*i/numstars));
             }
+
             stop = cur + 3000;
+        }
+
+        if (! insideScreen() && player.pos.dist(new Point(250, 250)) > 750) {
+            stage = 0;
+            tries += 1;
+        }
+        if (cur > stop) {
+            stage = 0;
+            tries += 1;
         }
 
     }
@@ -164,10 +178,6 @@ public class Level{
 
         player.draw();
         if (! insideScreen()) showlocation();
-        if (! insideScreen() && player.pos.dist(new Point(250, 250)) > 750) {
-            stage = 0;
-            tries += 1;
-        }
 
         showghost();
 
