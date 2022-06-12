@@ -87,7 +87,6 @@ public class Level{
             planets = new ArrayList<Planet>();
             for (int i = 0; i < numplanets; i++)
                 planets.add(new Planet(s.nextInt(), s.nextInt(), s.nextInt()));
-
             s.close();
         } catch (Exception e) {
             println(e);
@@ -131,7 +130,7 @@ public class Level{
             stars = new ArrayList<Star>();
             int numstars = 10;
             for (int i = 0; i < numstars; i++) {
-                stars.add(new Star(400, 200, TWO_PI*i/numstars));
+                stars.add(new Star(player.pos.x, player.pos.y, TWO_PI*i/numstars));
             }
             stop = cur + 3000;
         }
