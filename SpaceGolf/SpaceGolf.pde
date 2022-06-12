@@ -81,7 +81,10 @@ void keyPressed() {
         level.stage = 3;
         level.stop = cur + 8000;
     }
-    else if (key == 'q') level.stage = 1;
+    else if (key == 'q') {
+        level.stage = 0;
+        level.tries += 1;
+    }
 }
 
 
