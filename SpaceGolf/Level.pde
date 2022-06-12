@@ -32,7 +32,7 @@ public class Level{
         // menu
         lbuttons = new ArrayList<LevelButton>();
         for (int i = 1; i <= 5; i++) {
-            println(i <= maxlevel);
+            // println(i <= maxlevel);
             lbuttons.add(new LevelButton(80 + 160*(i-1), 350, i, (i <= maxlevel)));
         }
     }

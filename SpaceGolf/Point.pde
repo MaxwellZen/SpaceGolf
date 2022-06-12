@@ -73,7 +73,7 @@ public class Point {
         return minus(normalized.scale(2 * dot(normalized)));
     }
 
-    public Point bounce (Point other) {
+    public Point bounce(Point other) {
         return reflect(new Point(-other.y, other.x));
     }
 

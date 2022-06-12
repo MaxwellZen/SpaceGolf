@@ -22,7 +22,7 @@ void setup() {
 
     byte[] bytes = loadBytes("LevelData/maxlevel.txt");
     maxlevel = bytes[0] - '0';
-    println(maxlevel);
+    // println(maxlevel);
 
     level = new Level();
 

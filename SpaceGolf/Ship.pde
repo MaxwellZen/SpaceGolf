@@ -2,6 +2,7 @@ public class Ship {
 	Point pos, vel;
 	float mass;
 	PImage img;
+	int collided;
 
 	// constructors
 	Ship() {
@@ -45,6 +46,20 @@ public class Ship {
 	// update position from velocity
 	void updatePos() {
 		pos = pos.plus(vel.scale(dt));
+
+		for (Planet p : planets) {
+			if (p.num != collided && pos.dist(p.pos) + 20 <= p.r) {
+				collide(p);
+				collided = p.num;
+				prev = System.currentTimeMillis();
+			}
+		}
+		if (System.currentTimeMillis() - prev > 1000) collided = -1;
+	}
+
+	void collide(Planet p) {
+		Point temp = new Point(pos.x - p.pos.x, pos.y - p.pos.y);
+		vel = vel.reflect(temp);
 	}
 
 }
