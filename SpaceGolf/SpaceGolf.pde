@@ -46,10 +46,10 @@ void mousePressed() {
     if (level.stage==1 || level.stage==2) {
         boolean found = false;
         for (Planet p : planets) {
-            if (p.inside(mouseX, mouseY) && (level.stage==1 || level.stage==2)) {
+            if (p.num != 0 && p.inside(mouseX, mouseY) && (level.stage==1 || level.stage==2)) {
                 level.stage = 2;
                 level.selected = p;
-                buttonSelect(p.num);
+                buttonSelect(p.num - 1);
                 found = true;
             }
         }
