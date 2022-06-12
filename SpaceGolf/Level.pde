@@ -14,7 +14,7 @@ public class Level{
     long stop;
 
     public Level() {
-        levelnum = 1;
+        levelnum = 0;
         stage = 0;
         tries = 1;
         holeimg = loadImage("Pictures/hole.png");
@@ -31,11 +31,10 @@ public class Level{
 
         // menu
         lbuttons = new ArrayList<LevelButton>();
-        lbuttons.add(new LevelButton(80, 350, 1, true));
-        lbuttons.add(new LevelButton(240, 350, 2, true));
-        lbuttons.add(new LevelButton(400, 350, 3, true));
-        lbuttons.add(new LevelButton(560, 350, 4, false));
-        lbuttons.add(new LevelButton(720, 350, 5, false));
+        for (int i = 1; i <= 5; i++) {
+            println(i <= maxlevel);
+            lbuttons.add(new LevelButton(80 + 160*(i-1), 350, i, (i <= maxlevel)));
+        }
     }
 
     void play() {
@@ -62,18 +61,10 @@ public class Level{
         textSize(13);
         fill(255);
         textAlign(CENTER);
-        text("LV 1", 80, 410);
-        text("LV 2", 241, 410);
-        text("LV 3", 402, 410);
-        fill(100);
-        text("LV 4", 563, 410);
-        text("LV 5", 724, 410);
-
-        // lbuttons.add(new LevelButton(80, 350, 1, true));
-        // lbuttons.add(new LevelButton(240, 350, 2, true));
-        // lbuttons.add(new LevelButton(400, 350, 3, true));
-        // lbuttons.add(new LevelButton(560, 350, 4, false));
-        // lbuttons.add(new LevelButton(720, 350, 5, false));
+        for (int i = 1; i <= 5; i++) {
+            text("LV " + String.valueOf(i), 80 + 161*(i-1), 410);
+            if (i==maxlevel) fill(100);
+        }
     }
 
     void setuplevel() {
