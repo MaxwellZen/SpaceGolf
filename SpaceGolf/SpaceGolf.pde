@@ -20,6 +20,10 @@ void setup() {
     size(800, 500);
     pixelDensity(2);
 
+    byte[] bytes = loadBytes("LevelData/maxlevel.txt");
+    maxlevel = bytes[0] - '0';
+    println(maxlevel);
+
     level = new Level();
 
     dt = 0;
@@ -28,8 +32,6 @@ void setup() {
     PFont font = createFont("Minecraftia-Regular.ttf", 30);
     textFont(font);
     fill(255, 255, 255);
-
-
 }
 
 void draw() {
