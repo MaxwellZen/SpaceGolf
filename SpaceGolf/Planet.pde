@@ -56,7 +56,7 @@ public class Planet {
 	}
 
 	void move(float x, float y) {
-		pos = new Point(x, y);
+		if (num != 0) pos = new Point(x, y);
 	}
 
 }
