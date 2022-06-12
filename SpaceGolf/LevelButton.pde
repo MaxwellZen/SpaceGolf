@@ -52,7 +52,10 @@ public class LevelButton {
             image(img, -12, -20, 24, 40);
             popMatrix();
 
-            if (mousePressed == true) level.levelnum = num;
+            if (mousePressed == true) {
+                level.levelnum = num;
+                level.stage = 0;
+            }
         }
     }
 }

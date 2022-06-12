@@ -2,7 +2,6 @@ public class Ship {
 	Point pos, vel;
 	float mass;
 	PImage img;
-	int collided;
 
 	// constructors
 	Ship() {
@@ -32,6 +31,11 @@ public class Ship {
 		translate(pos.x, pos.y);
 		rotate(PI/2 + atan2(vel.y, vel.x));
 		image(img, -18, -30, 36, 60);
+		// stroke(255);
+		// line(-18, 0, 0, 36);
+		// line(0, 36, 18, 0);
+		// line(18, 0, 0, -36);
+		// line(0, -36, -18, 0);
 		popMatrix();
 	}
 
@@ -48,16 +52,14 @@ public class Ship {
 		pos = pos.plus(vel.scale(dt));
 
 		for (Planet p : planets) {
-			if (p.num != collided && pos.dist(p.pos) + 20 <= p.r) {
+			if (pos.dist(p.pos) < p.r + 20) {
 				collide(p);
-				collided = p.num;
-				prev = System.currentTimeMillis();
 			}
 		}
-		if (System.currentTimeMillis() - prev > 1000) collided = -1;
 	}
 
 	void collide(Planet p) {
+		pos = p.pos.plus(pos.minus(p.pos).normalize().scale(p.r+20));
 		Point temp = new Point(pos.x - p.pos.x, pos.y - p.pos.y);
 		vel = vel.reflect(temp);
 	}

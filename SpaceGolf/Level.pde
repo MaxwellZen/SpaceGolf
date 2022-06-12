@@ -164,7 +164,7 @@ public class Level{
 
         player.draw();
         if (! insideScreen()) showlocation();
-        if (! insideScreen() && player.pos.dist(new Point(0, 0)) > 750) {
+        if (! insideScreen() && player.pos.dist(new Point(250, 250)) > 750) {
             stage = 0;
             tries += 1;
         }
