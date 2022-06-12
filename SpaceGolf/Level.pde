@@ -14,7 +14,7 @@ public class Level{
     long stop;
 
     public Level() {
-        levelnum = 0;
+        levelnum = 1;
         stage = 0;
         tries = 1;
         holeimg = loadImage("Pictures/hole.png");
@@ -120,7 +120,7 @@ public class Level{
             b.update();
             if (mousePressed && b.mouseIn()) {
                 buttonSelect(i);
-                selected.setcolor(i);
+                selected.setcolor(i+1);
             }
         }
         for (Button b : buttons) b.display();

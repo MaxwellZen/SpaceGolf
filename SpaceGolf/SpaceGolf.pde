@@ -14,6 +14,8 @@ Level level;
 ArrayList<Planet> planets;
 Ship player;
 
+int maxlevel;
+
 void setup() {
     size(800, 500);
     pixelDensity(2);
@@ -26,6 +28,8 @@ void setup() {
     PFont font = createFont("Minecraftia-Regular.ttf", 30);
     textFont(font);
     fill(255, 255, 255);
+
+
 }
 
 void draw() {
@@ -45,7 +49,7 @@ void mousePressed() {
             if (p.inside(mouseX, mouseY) && (level.stage==1 || level.stage==2)) {
                 level.stage = 2;
                 level.selected = p;
-                buttonSelect(p.num);
+                buttonSelect(p.num-1);
                 found = true;
             }
         }
