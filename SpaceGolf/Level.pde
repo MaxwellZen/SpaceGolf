@@ -65,6 +65,7 @@ public class Level{
         text("LV 1", 80, 410);
         text("LV 2", 241, 410);
         text("LV 3", 402, 410);
+        fill(100);
         text("LV 4", 563, 410);
         text("LV 5", 724, 410);
 

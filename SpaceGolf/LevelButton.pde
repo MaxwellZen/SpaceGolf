@@ -42,7 +42,7 @@ public class LevelButton {
         // set button color
         if (reached && hover) fill(255, 255, 255, 70);
         else if (reached) fill(0, 0, 0, 10);
-        else fill(0, 0, 0, 95);
+        else fill(0, 0, 0, 180);
         circle(x, y, 2*r);
 
         if (reached && hover) {

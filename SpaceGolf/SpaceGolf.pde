@@ -23,7 +23,7 @@ void setup() {
     dt = 0;
     prev = System.currentTimeMillis();
 
-    PFont font = createFont("Minecraftia", 30);
+    PFont font = createFont("Minecraftia-Regular.ttf", 30);
     textFont(font);
     fill(255, 255, 255);
 }
