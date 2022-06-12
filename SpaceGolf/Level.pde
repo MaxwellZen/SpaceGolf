@@ -96,7 +96,6 @@ public class Level{
             planets = new ArrayList<Planet>();
             for (int i = 0; i < numplanets; i++)
                 planets.add(new Planet(s.nextInt(), s.nextInt(), s.nextInt()));
-
             s.close();
         } catch (Exception e) {
             println(e);

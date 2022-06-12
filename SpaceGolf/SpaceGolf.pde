@@ -3,8 +3,8 @@ import java.util.Scanner;
 float G = 6.67e-11;
 long prev, cur;
 float dt;
-float[] mass = {1e16, 2e16, 3e16, 4e16, 5e16, 6e16};
-int[] radius = {30, 40, 50, 60, 70, 80};
+float[] mass = {1e16, 1e16, 2e16, 3e16, 4e16, 5e16, 6e16};
+int[] radius = {30, 30, 40, 50, 60, 70, 80};
 ArrayList<Button> buttons;
 ArrayList<LevelButton> lbuttons;
 
@@ -49,7 +49,7 @@ void mousePressed() {
             if (p.inside(mouseX, mouseY) && (level.stage==1 || level.stage==2)) {
                 level.stage = 2;
                 level.selected = p;
-                buttonSelect(p.num-1);
+                buttonSelect(p.num);
                 found = true;
             }
         }

@@ -22,7 +22,7 @@ public class Planet {
 
 	void setcolor(int n) {
 		num = n;
-		r = radius[n-1];
+		r = radius[n];
 
 		String name = "Pictures/planet" + String.valueOf(num) + ".png";
 		img = loadImage(name);
@@ -40,7 +40,7 @@ public class Planet {
 			return new Point(0,0);
 		}
 		// use GM/R^2 formula
-		float mag = G * mass[num-1] / pos.distsq(loc);
+		float mag = G * mass[num] / pos.distsq(loc);
 		Point ans = pos.minus(loc).normalize().scale(mag);
 		return ans;
 	}
