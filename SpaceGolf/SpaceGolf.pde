@@ -93,7 +93,13 @@ void keyPressed() {
 //     | __ | _|| |__|  _/ _||   /  | __| |_| | .` || (__  | |  | | | (_) | .` \__ \
 //     |_||_|___|____|_| |___|_|_\  |_|  \___/|_|\_| \___| |_| |___| \___/|_|\_|___/
 
-//
+
+// write max level
+void writemax() {
+    saveBytes("LevelData/maxlevel.txt", String.valueOf(maxlevel).getBytes());
+}
+
+// select button i
 void buttonSelect(int i) {
     for (int j = 0; j < 6; j++) {
         buttons.get(j).isSelected = false;
