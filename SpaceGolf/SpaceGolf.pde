@@ -83,7 +83,7 @@ void mousePressed() {
 void mouseDragged() {
     if (level.levelnum > 0 && level.stage==2) {
         for (Planet p : planets) {
-            if (p.inside(mouseX, mouseY)) {
+            if (p.inside(pmouseX, pmouseY)) {
                 boolean intersect = false;
                 for (Planet q : planets) {
                     if ((q.pos.x != p.pos.x || q.pos.y != p.pos.y) && dist(mouseX, mouseY, q.pos.x, q.pos.y) < p.r + q.r + 10) intersect = true;
