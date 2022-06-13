@@ -53,13 +53,13 @@ public class Ship {
 
 		for (Planet p : planets) {
 			if (pos.dist(p.pos) < p.r + 20) {
+				pos = pos.minus(vel.scale(dt));
 				collide(p);
 			}
 		}
 	}
 
 	void collide(Planet p) {
-		pos = p.pos.plus(pos.minus(p.pos).normalize().scale(p.r+20));
 		Point temp = new Point(pos.x - p.pos.x, pos.y - p.pos.y);
 		vel = vel.reflect(temp);
 	}

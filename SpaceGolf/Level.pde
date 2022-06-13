@@ -14,7 +14,7 @@ public class Level{
     long stop;
 
     public Level() {
-        levelnum = 0;
+        levelnum = 1;
         stage = 0;
         tries = 1;
         holeimg = loadImage("Pictures/hole.png");
@@ -187,6 +187,16 @@ public class Level{
 
         fill(30);
         rect(500, 0, 300, 500);
+
+        fill(50);
+        stroke(255);
+        if (inBox(620, 785, 433, 473)) fill(100);
+        rect(620, 433, 165, 40);
+
+        textSize(16);
+        fill(255);
+        textAlign(LEFT);
+        text("BACK TO MENU", 640, 470);
     }
 
     void showtries() {
