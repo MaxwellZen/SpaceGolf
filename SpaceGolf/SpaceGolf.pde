@@ -13,6 +13,7 @@ Level level;
 
 ArrayList<Planet> planets;
 Ship player;
+PImage bg;
 
 int maxlevel;
 
@@ -32,10 +33,11 @@ void setup() {
     PFont font = createFont("Minecraftia-Regular.ttf", 30);
     textFont(font);
     fill(255, 255, 255);
+    bg = loadImage("Pictures/star_bg.png");
+    bg.resize(850, 500);
 }
 
 void draw() {
-
     // update time variables
     cur = System.currentTimeMillis();
     dt = (cur - prev) / 1000.0;
