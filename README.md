@@ -2,6 +2,7 @@
 
 Maxwell Zen and Jennifer Sun
 
+
 ## Description:
 A rocket ship is stranded in space and wants to return to Earth safely! 
 
@@ -19,12 +20,14 @@ Controls:
 * Pressing ' ' launches the rocket
 * Pressing 'q' resets the current level and adds one to the try counter
 
+
 ## Physics Involved:
 
 * Gravitation
 * Bouncing
 * Vector calculations
 * Velocity
+
 
 ## Languages Used:
 Processing
