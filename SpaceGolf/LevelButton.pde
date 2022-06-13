@@ -55,6 +55,7 @@ public class LevelButton {
             if (mousePressed == true) {
                 level.levelnum = num;
                 level.stage = 0;
+                level.tries = 1;
             }
         }
     }
