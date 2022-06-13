@@ -20,6 +20,19 @@ public class Button{
         img.resize((int) w, (int) h);
     }
 
+    public Button(float xcor, float ycor, int width, int height, String text) {
+        x = xcor;
+        y = ycor;
+        w = width;
+        h = height;
+
+        hover = false;
+        isSelected = false;
+
+        textSize(16);
+        text(text, x, y);
+    }
+
     boolean mouseIn() {
         return mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY <= y + h;
     }
@@ -30,8 +43,11 @@ public class Button{
     }
 
     void display() {
-
-        image(img, x, y);
+        if (img != null) image(img, x, y);
+        else {
+            fill(20);
+            rect(x, y, w, h);
+        }
 
         if (hover) fill(255, 255, 255, 60);
         else noFill();

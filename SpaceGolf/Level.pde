@@ -1,6 +1,7 @@
 public class Level{
     Point hole;
-    // levelnum: 0 - game menu
+    // levelnum: -1 - instructions
+    //           0 - game menu
     //           1-5 - actual levels
     int tries, levelnum, stage;
     // stage: 0 - setup the current level
@@ -34,10 +35,12 @@ public class Level{
         for (int i = 1; i <= 5; i++) {
             lbuttons.add(new LevelButton(80 + 160*(i-1), 350, i, (i <= maxlevel)));
         }
+
     }
 
     void play() {
-        if (levelnum==0) menu();
+        if (levelnum==-1) instruc();
+        else if (levelnum==0) menu();
         else if (stage==0) setuplevel();
         else if (stage==1) planning();
         else if (stage==2) planetselect();
@@ -45,17 +48,43 @@ public class Level{
         else if (stage==4) victory();
     }
 
+    void instruc() {
+        image(bg, 0, 0);
+        textSize(60);
+        textAlign(CENTER);
+        fill(225, 225, 225);
+        text("SPACE GOLF", 400, 170);
+
+        textSize(16);
+        textAlign(CENTER);
+        text("The rocket ship is stranded in space and wants to return to Earth safely!", 400, 200);
+
+        textSize(14);
+        text("1) Each planet has a set mass and radius. They all have the same density", 400, 250);
+        text("and increase in size.", 400, 270);
+        text("2) The stone planets cannnot be moved.", 400, 310);
+        text("3) The rocket ship has a set starting position and initial velocity.", 400, 350);
+        text("4) Players are able to modify size and placement of all planets excluding the", 400, 390);
+        text("stone planets and Earth.", 400, 410);
+        text("5) If the rocket escapes too far from the screen or is stuck bouncing around", 400, 460);
+        text("planets, it will eventually die and be reset.", 400, 480);
+
+        LevelButton b_menu = new LevelButton(50, 50, 0, true);
+        b_menu.display();
+        b_menu.update();
+    }
+
     void menu() {
         image(bg, 0, 0);
         textSize(60);
         textAlign(CENTER);
         fill(225, 225, 225);
-        text("SPACE GOLF", 400, 150);
+        text("SPACE GOLF", 400, 170);
         textSize(17);
         text("-----------LEVEL MENU-----------", 400, 300);
         PImage img = loadImage("Pictures/ship.png");
-        image(img, 130, 60, 36, 60);
-        image(img, 615, 60, 36, 60);
+        image(img, 130, 80, 36, 60);
+        image(img, 617, 80, 36, 60);
 
         for (LevelButton lb : lbuttons) {
             lb.update();
@@ -194,6 +223,14 @@ public class Level{
 
         fill(0);
         rect(500, 0, 300, 500);
+
+        // if (levelnum == 1) {
+        textSize(12);
+        textAlign(LEFT);
+        fill(225, 225, 225);
+        text("Click on a planet to access the sidebar", 515, 350);
+        text("Drag it around to change its position", 530, 370);
+        // }
     }
 
     void showtries() {
