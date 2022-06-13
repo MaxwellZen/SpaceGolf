@@ -224,13 +224,21 @@ public class Level{
         fill(0);
         rect(500, 0, 300, 500);
 
-        // if (levelnum == 1) {
         textSize(12);
         textAlign(LEFT);
         fill(225, 225, 225);
         text("Click on a planet to access the sidebar", 515, 350);
         text("Drag it around to change its position", 530, 370);
-        // }
+
+        fill(50);
+        stroke(255);
+        if (inBox(620, 785, 433, 473)) fill(100);
+        rect(620, 433, 165, 40);
+
+        textSize(16);
+        fill(255);
+        textAlign(LEFT);
+        text("BACK TO MENU", 640, 470);
     }
 
     void showtries() {

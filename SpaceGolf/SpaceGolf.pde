@@ -47,19 +47,23 @@ void draw() {
 }
 
 void mousePressed() {
-    if (level.stage==1 || level.stage==2) {
-        boolean found = false;
-        for (Planet p : planets) {
-            if (p.num != 0 && p.inside(mouseX, mouseY) && (level.stage==1 || level.stage==2)) {
-                level.stage = 2;
-                level.selected = p;
-                buttonSelect(p.num - 1);
-                found = true;
+    if (level.levelnum == 0) {}
+    else {
+        if (inBox(620, 785, 433, 473)) level.levelnum = 0;
+        else if (level.stage==1 || level.stage==2) {
+            boolean found = false;
+            for (Planet p : planets) {
+                if (p.num != 0 && p.inside(mouseX, mouseY)) {
+                    level.stage = 2;
+                    level.selected = p;
+                    buttonSelect(p.num - 1);
+                    found = true;
+                }
             }
-        }
-        if (level.stage==2 && mouseX<500 && !found) {
-            level.selected = null;
-            level.stage=1;
+            if (level.stage==2 && mouseX<500 && !found) {
+                level.selected = null;
+                level.stage=1;
+            }
         }
     }
 }
@@ -99,6 +103,11 @@ void keyPressed() {
 //     | __ | _|| |__|  _/ _||   /  | __| |_| | .` || (__  | |  | | | (_) | .` \__ \
 //     |_||_|___|____|_| |___|_|_\  |_|  \___/|_|\_| \___| |_| |___| \___/|_|\_|___/
 
+
+// check if mouse is in box
+boolean inBox(int a, int b, int c, int d) {
+    return a <= mouseX && mouseX <= b && c <= mouseY && mouseY <= d;
+}
 
 // write max level
 void writemax() {
