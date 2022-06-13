@@ -1,7 +1,6 @@
 # Space Golf
 
-Maxwell Zen and Jennifer Sun
-
+Maxwell Zen and Jennifer Sun <br/>
 
 ## Description:
 A rocket ship is stranded in space and wants to return to Earth safely! 
@@ -18,16 +17,14 @@ Controls:
 * Clicking on a planet selects it and opens the sidebar menu for options to change it
 * Dragging planets around the screen moves it. Planets cannot overlap
 * Pressing ' ' launches the rocket
-* Pressing 'q' resets the current level and adds one to the try counter
-
+* Pressing 'q' resets the current level and adds one to the try counter <br/>
 
 ## Physics Involved:
 
 * Gravitation
 * Bouncing
 * Vector calculations
-* Velocity
-
+* Velocity <br/>
 
 ## Languages Used:
 Processing
