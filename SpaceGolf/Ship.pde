@@ -1,28 +1,24 @@
 public class Ship {
 	Point pos, vel;
 	float mass;
-	PImage img;
 
 	// constructors
 	Ship() {
 		pos = new Point(0,0);
 		vel = new Point(0,0);
 		mass = 1;
-		img = loadImage("Pictures/ship.png");
 	}
 
 	Ship(float px, float py, float vx, float vy, float m) {
 		pos = new Point(px,py);
 		vel = new Point(vx,vy);
 		mass = m;
-		img = loadImage("Pictures/ship.png");
 	}
 
 	Ship(Ship other) {
 		pos = new Point(other.pos.x, other.pos.y);
 		vel = new Point(other.vel.x, other.vel.y);
 		mass = other.mass;
-		img = loadImage("Pictures/ship.png");
 	}
 
 	// draw by transforming image in place and drawing image
@@ -30,7 +26,7 @@ public class Ship {
 		pushMatrix();
 		translate(pos.x, pos.y);
 		rotate(PI/2 + atan2(vel.y, vel.x));
-		image(img, -18, -30, 36, 60);
+		image(shipimg, -18, -30, 36, 60);
 		// stroke(255);
 		// line(-18, 0, 0, 36);
 		// line(0, 36, 18, 0);

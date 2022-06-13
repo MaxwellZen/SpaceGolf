@@ -13,41 +13,53 @@ Level level;
 
 ArrayList<Planet> planets;
 Ship player;
+PImage shipimg;
 PImage bg;
+PGraphics pg;
 
 int maxlevel;
 
 void setup() {
     size(800, 500);
-    pixelDensity(2);
+    // pixelDensity(2);
 
     byte[] bytes = loadBytes("LevelData/maxlevel.txt");
     maxlevel = bytes[0] - '0';
     // println(maxlevel);
 
     level = new Level();
+    if (maxlevel>1) level.levelnum = 0;
 
     dt = 0;
-    prev = System.currentTimeMillis();
+    prev = cur = System.currentTimeMillis();
 
     PFont font = createFont("Minecraftia-Regular.ttf", 30);
     textFont(font);
     fill(255, 255, 255);
     bg = loadImage("Pictures/star_bg.png");
-    bg.resize(850, 500);
+    bg.resize(800, 500);
+    pg = createGraphics(800, 500);
+    pg.beginDraw();
+    pg.image(bg, 0, 0);
+    pg.endDraw();
+
+    shipimg = loadImage("Pictures/ship.png");
+    shipimg.resize(36, 60);
 }
 
 void draw() {
     // update time variables
+    prev = cur;
     cur = System.currentTimeMillis();
     dt = (cur - prev) / 1000.0;
-    prev = cur;
 
     level.play();
 }
 
 void mousePressed() {
-    if (level.levelnum == 0) {}
+    if (level.levelnum == -1) {
+        if (inBox(20, 155, 20, 60)) level.levelnum = 0;
+    } else if (level.levelnum == 0) {}
     else {
         if (inBox(620, 785, 433, 473)) level.levelnum = 0;
         else if (level.stage==1 || level.stage==2) {
@@ -69,7 +81,7 @@ void mousePressed() {
 }
 
 void mouseDragged() {
-    if (level.stage==2) {
+    if (level.levelnum > 0 && level.stage==2) {
         for (Planet p : planets) {
             if (p.inside(mouseX, mouseY)) {
                 boolean intersect = false;

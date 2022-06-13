@@ -10,16 +10,24 @@ public class Level{
     //        3 - release stage
     //        4 - victory stage
     Planet selected;
-    PImage holeimg, screen;
+    PImage holeimg, flagimg, screen;
+    PGraphics holepg;
     ArrayList<Star> stars;
     long stop;
 
     public Level() {
-        levelnum = 0;
+        levelnum = -1;
         stage = 0;
         tries = 1;
         holeimg = loadImage("Pictures/hole.png");
         holeimg.resize(50, 50);
+        flagimg = loadImage("Pictures/flag.png");
+        flagimg.resize(20, 30);
+        holepg = createGraphics(50, 70);
+        holepg.beginDraw();
+        holepg.image(holeimg, 0, 20);
+        holepg.image(flagimg, 20, 0);
+        holepg.endDraw();
 
         // sidebar
         buttons = new ArrayList<Button>();
@@ -49,7 +57,8 @@ public class Level{
     }
 
     void instruc() {
-        image(bg, 0, 0);
+        // image(bg, 0, 0);
+        image(pg, 0, 0);
         textSize(60);
         textAlign(CENTER);
         fill(225, 225, 225);
@@ -60,8 +69,8 @@ public class Level{
         text("The rocket ship is stranded in space and wants to return to Earth safely!", 400, 200);
 
         textSize(14);
-        text("1) Each planet has a set mass and radius. They all have the same density", 400, 250);
-        text("and increase in size.", 400, 270);
+        text("1) Each planet has a set mass and radius. They increase in both size and", 400, 250);
+        text("mass.", 400, 270);
         text("2) The stone planets cannnot be moved.", 400, 310);
         text("3) The rocket ship has a set starting position and initial velocity.", 400, 350);
         text("4) Players are able to modify size and placement of all planets excluding the", 400, 390);
@@ -69,22 +78,35 @@ public class Level{
         text("5) If the rocket escapes too far from the screen or is stuck bouncing around", 400, 460);
         text("planets, it will eventually die and be reset.", 400, 480);
 
-        LevelButton b_menu = new LevelButton(50, 50, 0, true);
-        b_menu.display();
-        b_menu.update();
+        // LevelButton b_menu = new LevelButton(50, 50, 0, true);
+        // b_menu.display();
+        // b_menu.update();
+
+
+        fill(50);
+        stroke(255);
+        int bx = 30, by = 30;
+        int bw = 165, bh = 40;
+        if (inBox(20, 155, 20, 60)) fill(100);
+        rect(20, 20, 135, 40);
+
+        textSize(16);
+        fill(255);
+        textAlign(LEFT);
+        text("CONTINUE", 40, 57);
     }
 
     void menu() {
-        image(bg, 0, 0);
+        // image(bg, 0, 0);
+        image(pg, 0, 0);
         textSize(60);
         textAlign(CENTER);
         fill(225, 225, 225);
         text("SPACE GOLF", 400, 170);
         textSize(17);
         text("-----------LEVEL MENU-----------", 400, 300);
-        PImage img = loadImage("Pictures/ship.png");
-        image(img, 130, 80, 36, 60);
-        image(img, 617, 80, 36, 60);
+        image(shipimg, 130, 80);
+        image(shipimg, 617, 80);
 
         for (LevelButton lb : lbuttons) {
             lb.update();
@@ -101,7 +123,6 @@ public class Level{
     }
 
     void setuplevel() {
-        image(bg, 0, 0);
         // parse dat shit
         try {
             String path = "LevelData/level" + String.valueOf(levelnum) + ".txt";
@@ -130,12 +151,10 @@ public class Level{
     }
 
     void planning() {
-        image(bg, 0, 0);
         display();
     }
 
     void planetselect() {
-        image(bg, 0, 0);
         display();
 
         // buttons
@@ -152,7 +171,6 @@ public class Level{
 
 
     void release() {
-        image(bg, 0, 0);
         for (Planet p : planets) p.applyForce(player);
         player.updatePos();
 
@@ -206,7 +224,8 @@ public class Level{
     //     |_||_|___|____|_| |___|_|_\  |_|  \___/|_|\_| \___| |_| |___| \___/|_|\_|___/
 
     void display() {
-        image(bg, 0, 0);
+        background(20);
+        // image(pg, 0, 0);
 
         showfield();
 
@@ -217,7 +236,9 @@ public class Level{
 
         showghost();
 
-        image(holeimg, hole.x - 25, hole.y - 25);
+        image(holepg, hole.x - 25, hole.y - 45);
+        // image(holeimg, hole.x - 25, hole.y - 25);
+        // image(flagimg, hole.x-5, hole.y-45);
 
         showtries();
 
