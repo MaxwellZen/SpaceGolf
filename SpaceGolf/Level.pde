@@ -14,7 +14,7 @@ public class Level{
     long stop;
 
     public Level() {
-        levelnum = 1;
+        levelnum = 0;
         stage = 0;
         tries = 1;
         holeimg = loadImage("Pictures/hole.png");
