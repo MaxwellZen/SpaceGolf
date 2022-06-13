@@ -1,6 +1,7 @@
 # Space Golf
 
-Maxwell Zen and Jennifer Sun 
+Maxwell Zen and Jennifer Sun
+
 <br/>
 
 ## Description:
