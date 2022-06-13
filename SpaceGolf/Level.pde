@@ -46,11 +46,16 @@ public class Level{
     }
 
     void menu() {
-        background(20);
+        image(bg, 0, 0);
         textSize(60);
         textAlign(CENTER);
         fill(225, 225, 225);
         text("SPACE GOLF", 400, 150);
+        textSize(17);
+        text("-----------LEVEL MENU-----------", 400, 300);
+        PImage img = loadImage("Pictures/ship.png");
+        image(img, 130, 60, 36, 60);
+        image(img, 615, 60, 36, 60);
 
         for (LevelButton lb : lbuttons) {
             lb.update();
@@ -67,7 +72,7 @@ public class Level{
     }
 
     void setuplevel() {
-
+        image(bg, 0, 0);
         // parse dat shit
         try {
             String path = "LevelData/level" + String.valueOf(levelnum) + ".txt";
@@ -93,14 +98,15 @@ public class Level{
         }
 
         stage = 1;
-
     }
 
     void planning() {
+        image(bg, 0, 0);
         display();
     }
 
     void planetselect() {
+        image(bg, 0, 0);
         display();
 
         // buttons
@@ -117,6 +123,7 @@ public class Level{
 
 
     void release() {
+        image(bg, 0, 0);
         for (Planet p : planets) p.applyForce(player);
         player.updatePos();
 
@@ -170,7 +177,7 @@ public class Level{
     //     |_||_|___|____|_| |___|_|_\  |_|  \___/|_|\_| \___| |_| |___| \___/|_|\_|___/
 
     void display() {
-        background(20);
+        image(bg, 0, 0);
 
         showfield();
 
@@ -185,7 +192,7 @@ public class Level{
 
         showtries();
 
-        fill(30);
+        fill(0);
         rect(500, 0, 300, 500);
 
         fill(50);
